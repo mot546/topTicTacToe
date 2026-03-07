@@ -1,9 +1,16 @@
-const gameBoard = [
-    board = [
-      "","","",
-      "","","",
-      "","",""],
-  ];
+const gameBoard = {
+    board: [
+      "1","2","3",
+      "4","5","6",
+      "7","8","9"],
+  };
+gameBoard.resetBoard =function(){
+  this.board= [
+      "1","2","3",
+      "4","5","6",
+      "7","8","9",
+    ];
+}
   
 function makePlayer(name, symbol){
    let score;
@@ -25,10 +32,49 @@ function makePlayer(name, symbol){
   const player1 = makePlayer(player1Name, "X");
   const player2 = makePlayer(player2Name, "O");
   
-  gameBoard.push(player1);
-  gameBoard.push(player2);
+  gameBoard.player1 = player1;
+  gameBoard.player2 = player2;
 } )();
 
-function placeSymbol(symbol){
-  console.table()
-}
+function play(){
+  
+  let whoWon = "";
+  
+  function beforePlaceSymbol(){
+    let numberOfTurn = 1;
+    let bool = true;
+    while(bool){
+        if(whoWon == ""){
+          numberOfTurn%2 ===0?placeSymbol(gameBoard.player1.symbol):placeSymbol(gameBoard.player2.symbol);
+          numberOfTurn++;
+          winnerCheck();
+        }else{
+          console.log(`${whoWon} won !`);
+          bool = false;
+        }
+   }
+  }
+  
+  function placeSymbol(symbol){
+    console.table(gameBoard.board);
+    let cell = prompt("Which cell to place?: ");
+   if (cell=="X" || cell=="O"){
+      console.log("already hss X or O");
+      play();
+   }else{
+      gameBoard.board[cell - 1] = symbol;
+   }
+   
+  }
+    
+  function winnerCheck(){
+      whoWon = 3;
+    }
+    
+    return{beforePlaceSymbol, placeSymbol};
+  }
+  
+  const playGame = play();
+  playGame.beforePlaceSymbol()
+  
+  
