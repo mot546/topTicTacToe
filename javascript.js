@@ -37,7 +37,16 @@ function makePlayer(name, symbol){
 } )();
 
 function play(){
-  
+  let winningList = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+    [1,4,7],
+    [2,5,8],
+    [3,6,9],
+    [1,5,9],
+    [3,5,7],
+    ];
   let whoWon = "";
   
   function beforePlaceSymbol(){
@@ -68,10 +77,7 @@ function play(){
   }
     
   function winnerCheck(){
-      whoWon = 3;
-    }
     
-    return{beforePlaceSymbol, placeSymbol};
   }
   
   const playGame = play();
