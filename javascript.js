@@ -77,6 +77,13 @@ function play(){
   }
     
   function winnerCheck(){
+    let toCheck;
+    
+    for(let i=0; i < winningList.length; i++){
+      for (const cellNo of winningList[i]){
+        toCheck.push(gameBoard.board[cellNo]);
+      }
+    }
     
   }
   
