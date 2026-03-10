@@ -26,8 +26,8 @@ function makePlayer(name, symbol){
  };
   
 (function addPlayerToGameBoard(){
-  let player1Name = prompt("Enter Player 1 Name: ");
-  let player2Name = prompt("Enter Player 2 Name: ");
+  let player1Name = `itet`;
+  let player2Name = `tite`;
 
   const player1 = makePlayer(player1Name, "X");
   const player2 = makePlayer(player2Name, "O");
@@ -75,7 +75,7 @@ function play(){
   
   function placeSymbol(symbol){
     console.table(gameBoard.board);
-    let cell = prompt("Which cell to place?: ");
+    // let cell = prompt("Which cell to place?: ");
    if (cell=="X" || cell=="O"){
       console.log("already hss X or O");
       play();
@@ -103,6 +103,4 @@ function play(){
   return {beforePlaceSymbol};
 }
   const playGame = play();
-playGame.beforePlaceSymbol();
-  
   
