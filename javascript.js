@@ -55,21 +55,21 @@ function play(){
       console.log("tie");
     }
 
-    let numberOfTurn = 1;
+    let numberOfTurn = 0;
     let bool = true;
     while(bool){
-        if(numberOfTurn === 9){
-          bool=false 
-          tie();
-        };
-        if(whoWon == ""){
-          numberOfTurn%2 ===0?placeSymbol(gameBoard.player1.symbol):placeSymbol(gameBoard.player2.symbol);
-          numberOfTurn++;
-          winnerCheck();
-        }else{
-          console.log(`${whoWon} won !`);
-          bool = false;
-        }
+      if(whoWon == ""){
+        numberOfTurn%2 ===0?placeSymbol(gameBoard.player1.symbol):placeSymbol(gameBoard.player2.symbol);
+        numberOfTurn++;
+        winnerCheck();
+      }else{
+        console.log(`${whoWon} won !`);
+        bool = false;
+      }
+      if(numberOfTurn === 9 && whoWon == ""){
+        bool=false ;
+        tie();
+      };
    }
   }
   
