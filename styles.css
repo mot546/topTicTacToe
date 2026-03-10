@@ -44,6 +44,11 @@ main{
     border-radius: 12px;
 }
 
+.cells:hover{
+    cursor: pointer;
+    background-color: #b6967a;
+    transition: background-color .5s;
+}
 
 .cells{
     border: .2rem solid var(--dark-brown);
@@ -88,4 +93,35 @@ main{
     border-right: none;
     border-bottom: none;
     border-bottom-right-radius: 12px;
+}
+
+.enter-name-dialog{
+    border: none;
+    background: var(--white)    ;
+    width: 100vw;
+    color: var(--dark-brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    gap: 1rem
+}
+
+.input-group > label{
+    padding-right: 1rem;
+}
+input{
+    border: none;
+    background-color: var(--light-brown);
+    border-radius: 5px;
+    height: 2rem;
+}
+
+button{
+    border: none;
+    background-color: var(--light-brown);
+    height: 2rem;
+    border-radius: 5px;
+    width: 20%;
+    cursor:pointer;
 }

@@ -25,12 +25,10 @@ function makePlayer(name, symbol){
    return {name, symbol, addScore, getScore, resetScore};
  };
   
-(function addPlayerToGameBoard(){
-  let player1Name = `itet`;
-  let player2Name = `tite`;
+(function addPlayerToGameBoard(p1Name, p2Name){
 
-  const player1 = makePlayer(player1Name, "X");
-  const player2 = makePlayer(player2Name, "O");
+  const player1 = makePlayer(p1Name, "X");
+  const player2 = makePlayer(p2Name, "O");
   
   gameBoard.player1 = player1;
   gameBoard.player2 = player2;
@@ -102,5 +100,19 @@ function play(){
 
   return {beforePlaceSymbol};
 }
-  const playGame = play();
+
+(function welcome(){
+
+  document.addEventListener("DOMContentLoaded", () =>{
+    const dialog = document.querySelector(".enter-name-dialog");
+    dialog.showModal();
+  });
   
+  const button = document.querySelector(".enter-name-dialog button");
+  
+  button.addEventListener("click", () => {
+    
+    dialog.close();
+  });
+
+})();
