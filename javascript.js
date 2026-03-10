@@ -50,9 +50,18 @@ function play(){
   let whoWon = "";
   
   function beforePlaceSymbol(){
+
+    function tie(){
+      console.log("tie");
+    }
+
     let numberOfTurn = 1;
     let bool = true;
     while(bool){
+        if(numberOfTurn === 9){
+          bool=false 
+          tie();
+        };
         if(whoWon == ""){
           numberOfTurn%2 ===0?placeSymbol(gameBoard.player1.symbol):placeSymbol(gameBoard.player2.symbol);
           numberOfTurn++;
@@ -77,17 +86,23 @@ function play(){
   }
     
   function winnerCheck(){
-    let toCheck;
     
     for(let i=0; i < winningList.length; i++){
+      let toCheck = "";
       for (const cellNo of winningList[i]){
-        toCheck.push(gameBoard.board[cellNo]);
+        toCheck += gameBoard.board[cellNo-1];
+
+      }
+      if(toCheck.split('').every(char => char === toCheck[0])){
+        console.log(toCheck, winningList[i].join(""));
+        whoWon = toCheck[0];
       }
     }
-    
   }
-  
+
+  return {beforePlaceSymbol};
+}
   const playGame = play();
-  playGame.beforePlaceSymbol()
+playGame.beforePlaceSymbol();
   
   
