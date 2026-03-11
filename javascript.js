@@ -35,7 +35,43 @@ function makePlayer(name, symbol){
 } )();
 
 function play(){
-  let winningList = [
+  
+  function beforePlaceSymbol(cell){
+    
+      if(gameController.whoWon == ""){
+        gameController.numberOfTurn%2 ===0?gameController.xOrO = gameBoard.player1.symbol:gameController.xOrO = gameBoard.player2.symbol;
+        placeSymbol(gameController.xOrO, cell);
+        gameController.numberOfTurn++;
+      }else{
+        console.log(`${gameController.whoWon} won !`);
+        gameController.numberOfTurn = 0;
+      }
+      if(gameController.numberOfTurn === 9 && whoWon == ""){
+        console.log("tie");
+      };
+   
+  }
+  
+  function placeSymbol(symbol,cell){
+    let cellInBoard = gameBoard.board[cell-1];
+   if (cellInBoard=="X" || cellInBoard=="O"){
+    console.log("already Place");
+   }else{
+      gameBoard.board[cell - 1] = symbol;
+   }
+   
+  }
+    
+  
+  return {beforePlaceSymbol};
+}
+
+const playGame = play();
+let gameController = {
+  xOrO: "",
+  numberOfTurn: 0,
+  whoWon: "",
+  winningList : [
     [1,2,3],
     [4,5,6],
     [7,8,9],
@@ -44,75 +80,30 @@ function play(){
     [3,6,9],
     [1,5,9],
     [3,5,7],
-    ];
-  let whoWon = "";
-  
-  function beforePlaceSymbol(){
+    ],
+};
 
-    function tie(){
-      console.log("tie");
-    }
-
-    let numberOfTurn = 0;
-    let bool = true;
-    while(bool){
-      if(whoWon == ""){
-        numberOfTurn%2 ===0?placeSymbol(gameBoard.player1.symbol):placeSymbol(gameBoard.player2.symbol);
-        numberOfTurn++;
-        winnerCheck();
-      }else{
-        console.log(`${whoWon} won !`);
-        bool = false;
-      }
-      if(numberOfTurn === 9 && whoWon == ""){
-        bool=false ;
-        tie();
-      };
-   }
-  }
-  
-  function placeSymbol(symbol){
-    console.table(gameBoard.board);
-    // let cell = prompt("Which cell to place?: ");
-   if (cell=="X" || cell=="O"){
-      console.log("already hss X or O");
-      play();
-   }else{
-      gameBoard.board[cell - 1] = symbol;
-   }
-   
-  }
+gameController.winnerCheck = function(){
     
-  function winnerCheck(){
-    
-    for(let i=0; i < winningList.length; i++){
+    for(let i=0; i < this.winningList.length; i++){
       let toCheck = "";
-      for (const cellNo of winningList[i]){
+      for (const cellNo of this.winningList[i]){
         toCheck += gameBoard.board[cellNo-1];
-
       }
+      console.log(toCheck);
       if(toCheck.split('').every(char => char === toCheck[0])){
-        console.log(toCheck, winningList[i].join(""));
-        whoWon = toCheck[0];
+        console.log("wiinnnerr");
+        this.whoWon = toCheck[0];
       }
     }
   }
 
-  return {beforePlaceSymbol};
-}
 
-(function welcome(){
-
-  document.addEventListener("DOMContentLoaded", () =>{
-    const dialog = document.querySelector(".enter-name-dialog");
-    dialog.showModal();
+const cells = document.querySelectorAll(".cells");
+cells.forEach(cell => {
+  cell.addEventListener('click', function(){
+    playGame.beforePlaceSymbol(cell.id);
+    cell.textContent = gameController.xOrO;
+    gameController.winnerCheck();
   });
-  
-  const button = document.querySelector(".enter-name-dialog button");
-  
-  button.addEventListener("click", () => {
-    
-    dialog.close();
-  });
-
-})();
+});

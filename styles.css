@@ -100,11 +100,11 @@ main{
     background: var(--white)    ;
     width: 100vw;
     color: var(--dark-brown);
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: column wrap;
-    gap: 1rem
+    gap: 1rem */
 }
 
 .input-group > label{
@@ -116,12 +116,15 @@ input{
     border-radius: 5px;
     height: 2rem;
 }
+input::placeholder{
+    color: var(--mid-brown);
+}
 
 button{
     border: none;
     background-color: var(--light-brown);
     height: 2rem;
     border-radius: 5px;
-    width: 20%;
+    width: 22%;
     cursor:pointer;
 }
