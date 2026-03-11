@@ -11,6 +11,7 @@ gameBoard.resetBoard =function(){
       "4","5","6",
       "7","8","9",
     ];
+
 }
 
 let gameController = {
@@ -34,42 +35,84 @@ gameController.winnerCheck = function(){
     
     for(let i=0; i < this.winningList.length; i++){
       let toCheck = "";
-      let winnerName = "";
+      let winnerName;
       for (const cellNo of this.winningList[i]){
         toCheck += gameBoard.board[cellNo-1];
       }
-      console.log(toCheck);
       if(toCheck.split('').every(char => char === toCheck[0])){
-        console.log("wiinnnerr");
         this.whoWon = toCheck[0];
-        if(this.numberOfTurn % 2 === 0){
+        if(this.player2.symbol  == this.whoWon){
           winnerName = this.player2.name;
-          this.player2.addScore;
+          this.player2.addScore();
         }
         else{
           winnerName = this.player1.name;
           this.player1.addScore();
         }
-        this.resetBoard();
+       
+        this.endGame(winnerName);
       }
     }
     
   }
+
+gameController.endGame = function (winnerName){
+  gameBoard.resetBoard();
+  this.numberOfTurn = 0;
+  this.whoWon = "";
+  const playOrNot = document.querySelector(".play-or-reset");
+  playOrNot.classList.remove("hide");
+
+  const playAgainButton = document.querySelector(".play-again-button");
+  const resetButton = document.querySelector(".reset-button");
+  const winnerh1 = document.querySelector(".winner");
+  winnerh1.textContent = winnerName + " win!";
+
+  playAgainButton.addEventListener('click',()=>{
+    this.placeScores();
+    this.clearDom();
+    playOrNot.classList.add("hide");
+  });
+  resetButton.addEventListener('click', ()=>{
+    window.location.reload();
+  });
+
+
+  
+}
 
 gameController.clearDom = function(){
   const cells = document.querySelectorAll(".cells");
   cells.forEach(cell => {
     cell.textContent = "";
   });
+  
+}
+
+gameController.placeNames = function(){
+  const player1H1 = document.querySelector(".player1-title");
+  const player2H1 = document.querySelector(".player2-title");
+
+  player1H1.textContent = this.player1.name;
+  player2H1.textContent = this.player2.name;
+}
+
+gameController.placeScores = function(){
+  const player1Score = document.querySelector(".score1");
+  const player2Score = document.querySelector(".score2");
+  
+  player1Score.textContent = this.player1.getScore();
+  player2Score.textContent = this.player2.getScore();
 }
 
 Object.setPrototypeOf(gameController, gameBoard);
  
 function makePlayer(name, symbol){
    let score = 0;
+   console.log("creating player");
    
    const addScore = function(){
-     return ++score;
+     return score += 1;
    }
    const getScore = () => score;
    
@@ -92,6 +135,8 @@ function makePlayer(name, symbol){
    gameBoard.player2 = makePlayer(player2Element.value, "O");
     body.classList.remove("body-welcome");
     welcome.classList.add("hide-welcome");
+    gameController.placeNames();
+
   });
   
   
@@ -106,11 +151,11 @@ function play(){
         placeSymbol(gameController.xOrO, cell);
        
       }else{
-        console.log(`${gameController.whoWon} won !`);
+        
         gameController.numberOfTurn = 0;
       }
       if(gameController.numberOfTurn === 9 && gameController.whoWon == ""){
-        console.log("tie");
+        gameController.endGame('Both of you did not ');
       };
    
   }

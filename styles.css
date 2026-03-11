@@ -31,9 +31,11 @@ main{
     padding: 1rem;
     background-color: var(--light-brown);
     display: flex;
-    justify-content: center;
+    flex-flow: row wrap;
+    justify-content: space-around;
     align-items: center;
     height: 74vh;
+    
 }
 
 .tictac-boxes{
@@ -141,4 +143,23 @@ button{
 }
 .alreadyHas{
     pointer-events: none;
+}
+
+.play-or-reset{
+    border: none;
+    background: var(--white)    ;
+    width: 94.5vw;
+    color: var(--dark-brown);
+    position: fixed;
+    top: 35%;
+    display: flex;
+    padding: 1.5rem;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hide{
+    display:none;
 }
