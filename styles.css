@@ -95,16 +95,19 @@ main{
     border-bottom-right-radius: 12px;
 }
 
-.enter-name-dialog{
+.welcome{
     border: none;
     background: var(--white)    ;
-    width: 100vw;
+    width: 94.5vw;
     color: var(--dark-brown);
-    /* display: flex;
+    position: fixed;
+    top: 35%;
+    display: flex;
+    padding: 1.5rem;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
-    flex-flow: column wrap;
-    gap: 1rem */
+    gap: 1rem;
 }
 
 .input-group > label{
@@ -127,4 +130,15 @@ button{
     border-radius: 5px;
     width: 22%;
     cursor:pointer;
+}
+
+.body-welcome{
+    pointer-events: none;
+}
+.hide-welcome{
+    display:none;
+    transition: .3s ease;
+}
+.alreadyHas{
+    pointer-events: none;
 }
