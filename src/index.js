@@ -5,6 +5,7 @@ const gameBoard = {
       "4","5","6",
       "7","8","9"],
   };
+
 gameBoard.resetBoard =function(){
   this.board= [
       "1","2","3",
@@ -30,6 +31,7 @@ let gameController = {
     [3,5,7],
     ],
 };
+
 
 gameController.winnerCheck = function(){
     
@@ -174,7 +176,6 @@ function play(){
   
   return {beforePlaceSymbol};
 }
-
 
 const playGame = play();
 const cells = document.querySelectorAll(".cells");
